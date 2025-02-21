@@ -22,26 +22,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initViews()
-    }
-
-    private fun initViews(){
-        fragmentA = FragmentA()
 
         btnAddFragment = findViewById(R.id.btnAddFragment)
         btnRemove = findViewById(R.id.btnRemove)
+
         btnAddFragment.setOnClickListener {
+            fragmentA = FragmentA()
             fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.add(R.id.fragmentA,fragmentA)
                 .addToBackStack("Added A fragment")
                 .commit()
-
             counterFragments.add(fragmentA)
         }
 
         btnRemove.setOnClickListener {
+            var indexToBeRemoved = counterFragments.size - 1
+            var counterFragmentA = counterFragments[indexToBeRemoved]
 
+           var fragmentTransaction1 = fragmentManager.beginTransaction()
+               fragmentTransaction1.remove(counterFragmentA)
+               fragmentTransaction1.commit()
 
+            counterFragments.remove(counterFragmentA)
         }
     }
 }
